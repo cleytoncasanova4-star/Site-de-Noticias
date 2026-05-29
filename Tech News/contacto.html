@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contacto</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+</head>
+
+<body>
+
+  <nav>
+
+    <div class="logo">TECH NEWS</div>
+
+    <ul>
+      <li><a href="index.html">Início</a></li>
+      <li><a href="noticias.html">Notícias</a></li>
+      <li><a href="sobre.html">Sobre</a></li>
+      <li><a href="privacidade.html">Privacidade</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+
+  </nav>
+
+  <section class="page about-bg">
+
+    <div class="glass">
+
+      <h1>Entre em Contacto</h1>
+
+      <p>
+        Tem sugestões, dúvidas ou parcerias?
+      </p>
+
+      <br>
+
+      <form class="contact-form">
+
+        <input type="text" placeholder="Seu nome">
+
+        <input type="email" placeholder="Seu email">
+
+        <textarea placeholder="Sua mensagem"></textarea>
+
+        <button type="submit">
+          Enviar Mensagem
+        </button>
+
+      </form>
+      <div class="socials">
+
+        <a href="https://facebook.com/cleytoncasanovajr.">
+          Facebook
+        </a>
+      
+        <a href="https://instagram.com/cleytoncasanova">
+          Instagram
+        </a>
+      
+        <a href="https://tiktok.com/@cleytoncasanova">
+          TikTok
+        </a>
+      
+        <a href="https://youtube.com/@cleytoncasanova">
+          YouTube
+        </a>
+      
+      </div>
+
+    </div>
+
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <script>
+    emailjs.init("8IbY_n3mBud9aGEbD");
+  
+    document.querySelector(".contact-form")
+      .addEventListener("submit", function(e) {
+  
+      e.preventDefault();
+  
+      emailjs.send("service_z37t9jl",
+      "template_qut024h", {
+  
+        name: document.querySelector('input[type="text"]').value,
+  
+        email: document.querySelector('input[type="email"]').value,
+  
+        message: document.querySelector("textarea").value
+  
+      })
+  
+      .then(() => {
+        alert("Mensagem enviada!");
+      })
+  
+      .catch((error) => {
+        alert("Erro ao enviar.");
+        console.log(error);
+      });
+  
+    });
+  </script>
+</body>
+
+</html>
