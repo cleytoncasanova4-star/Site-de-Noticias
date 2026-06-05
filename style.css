@@ -1,0 +1,544 @@
+/* =========================
+   FONTE
+========================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* =========================
+   RESET GLOBAL
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #020617;
+  color: white;
+}
+/* =========================
+   MENU BUTTON
+========================= */
+
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: cyan;
+  border: none;
+  padding: 10px 14px;
+  font-size: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 1000;
+}
+
+.overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 260px;
+  height: 100%;
+  background: #0f172a;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: 0.3s;
+  z-index: 1002;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar .logo {
+  font-size: 22px;
+  font-weight: 700;
+  color: cyan;
+  margin-bottom: 20px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  background: rgba(0,255,255,0.1);
+  color: cyan;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+.content {
+  padding: 80px 10%;
+  margin-left: 0;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+nav {
+  width: 100%;
+  padding: 20px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #020617;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.logo {
+  color: cyan;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+nav ul {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: cyan;
+}
+
+/* =========================
+   HERO
+========================= */
+.hero {
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  background:
+    linear-gradient(rgba(2,6,23,0.7), rgba(2,6,23,0.9)),
+    url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070')
+    center/cover;
+}
+
+.hero h1 {
+  font-size: 70px;
+  margin-bottom: 20px;
+}
+
+.hero p {
+  font-size: 22px;
+  color: #cbd5e1;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   BOTÕES GERAIS
+========================= */
+button {
+  cursor: pointer;
+}
+
+/* =========================
+   NOTÍCIAS
+========================= */
+.news-page {
+  padding: 100px 10%;
+}
+
+.news-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+  justify-items: center;
+}
+
+/* CARD */
+.card {
+  width: 100%;
+  max-width: 350px;
+  height: 480px;
+
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+
+  display: flex;
+  flex-direction: column;
+
+  transition: 0.3s;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.card-content h3 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.card-content p {
+  color: #cbd5e1;
+  font-size: 14px;
+  line-height: 1.6;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  margin-bottom: 15px;
+}
+
+/* BOTÃO LER MAIS */
+.ler-mais-btn {
+  margin-top: auto;
+  padding: 12px;
+  width: 100%;
+  background: cyan;
+  color: #020617;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  display: block;
+  transition: 0.3s;
+}
+
+.ler-mais-btn:hover {
+  box-shadow: 0 0 15px cyan;
+}
+
+/* =========================
+   FILTROS
+========================= */
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.filters button {
+  padding: 10px 18px;
+  border: 1px solid cyan;
+  background: transparent;
+  color: cyan;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.filters button:hover {
+  background: cyan;
+  color: black;
+}
+
+/* =========================
+   NOTÍCIA COMPLETA
+========================= */
+.noticia-completa {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px;
+}
+
+.noticia-completa img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 20px 0;
+}
+
+/* =========================
+   ADMIN (SIMPLIFICADO)
+========================= */
+.admin-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+/* LOGIN */
+.login-box {
+  width: 100%;
+  max-width: 400px;
+  margin: 120px auto;
+  background: #0f172a;
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+}
+
+/* INPUTS */
+input, textarea, select {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 12px;
+  background: #1e293b;
+  color: white;
+  outline: none;
+}
+
+/* BOTÕES ADMIN */
+.admin-box button,
+.login-box button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: cyan;
+  color: black;
+  font-weight: 700;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+@media (max-width: 900px) {
+  .hero h1 {
+    font-size: 45px;
+  }
+}
+
+@media (max-width: 600px) {
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .card {
+    height: auto;
+  }
+}
+@media (max-width: 768px) {
+    .news-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+}
+.hero-mini {
+  text-align: center;
+  padding: 80px 20px;
+  background: linear-gradient(rgba(2,6,23,0.8), rgba(2,6,23,0.9)),
+              url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=2070') center/cover;
+  border-radius: 20px;
+  margin-bottom: 40px;
+}
+
+.hero-mini h1 {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.hero-mini p {
+  color: #cbd5e1;
+  font-size: 18px;
+}
+.section-title {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.section-title span {
+  color: cyan;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+.section-title h2 {
+  font-size: 28px;
+  margin-top: 10px;
+}
+/* =========================
+   PAINEL ADMIN - LAYOUT
+========================= */
+
+.admin-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 40px 10%;
+}
+
+/* CARD DO FORMULÁRIO */
+.admin-box {
+  background: #0f172a;
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* INPUTS MAIS LIMPOS */
+.admin-box input,
+.admin-box textarea,
+.admin-box select {
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: none;
+  background: #1e293b;
+  color: white;
+  outline: none;
+}
+
+/* BOTÃO */
+.admin-box button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: cyan;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.admin-box button:hover {
+  box-shadow: 0 0 15px cyan;
+}
+
+/* =========================
+   IMAGEM DE PREVIEW (MUITO IMPORTANTE)
+========================= */
+
+.preview-img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 10px;
+  display: block;
+}
+
+/* INPUT FILE MAIS BONITO */
+input[type="file"] {
+  background: transparent;
+  padding: 10px 0;
+  color: white;
+}
+
+/* =========================
+   LISTA DE PRODUTOS / IMAGENS
+========================= */
+
+/* =========================
+   FIX FORÇADO DE IMAGENS (ADMIN + CARDS)
+========================= */
+
+img {
+  max-width: 100%;
+}
+
+
+
+/* EVITA ESTICAR EM TELAS GRANDES */
+.card,
+.product-card,
+.inicio-card {
+  overflow: hidden;
+}
+.admin-card {
+  background: #0f172a;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.admin-card-header {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.admin-card-header img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.admin-card-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.admin-card-body {
+  display: none;
+  padding: 10px;
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+.admin-card.active .admin-card-body {
+  display: block;
+}
