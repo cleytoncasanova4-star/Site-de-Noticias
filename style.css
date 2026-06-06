@@ -480,3 +480,19 @@ nav a:hover{color:cyan;}
 .ver-noticia-btn:hover{
   box-shadow:0 0 15px cyan;
 }
+.about {
+  max-width: 800px;
+  margin: auto;
+  padding: 40px 20px;
+  line-height: 1.7;
+}
+
+.about h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.about h2 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
