@@ -201,22 +201,26 @@ function renderNoticias(data) {
   data.forEach(n => {
 
     container.innerHTML += `
-      <div class="card">
+  <div class="card">
 
-        <img src="${n.imagem}" onclick="abrirNoticia(${n.id})">
+    <img src="${n.imagem}" onclick="abrirNoticia(${n.id})">
 
-        <div class="card-content">
+    <div class="card-content">
 
-          <span>${n.categoria}</span>
+      <span>${n.categoria}</span>
 
-          <h3>${n.titulo}</h3>
+      <h3>${n.titulo}</h3>
 
-          <p>${n.resumo}</p>
+      <p>${n.resumo}</p>
 
-        </div>
+      <button class="ver-noticia-btn" onclick="abrirNoticia(${n.id})">
+        Ver Notícia Completa
+      </button>
 
-      </div>
-    `;
+    </div>
+
+  </div>
+`;
   });
 }
 
