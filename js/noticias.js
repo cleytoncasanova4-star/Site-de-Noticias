@@ -34,7 +34,12 @@ function renderNoticias(data) {
 
           <h3>${n.titulo}</h3>
 
-          <p>${n.resumo}</p>
+          <p>${(n.resumo || "").substring(0, 120)}...</p>
+
+          <button class="ler-mais-btn"
+                  onclick="abrirNoticia(${n.id})">
+            Ver Notícia Completa
+          </button>
 
         </div>
 
