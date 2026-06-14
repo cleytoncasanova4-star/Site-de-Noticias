@@ -12,7 +12,13 @@ async function carregarNoticias() {
   }
 
   todasNoticias = data;
+  console.log(data.map(n => n.categoria));
   renderNoticias(data);
+  console.log("Categorias encontradas:");
+
+data.forEach(n => {
+  console.log(`[${n.categoria}]`);
+});
 }
 
 function renderNoticias(data) {
@@ -24,7 +30,7 @@ function renderNoticias(data) {
 
   data.forEach((n) => {
     container.innerHTML += `
-      <div class="card">
+      <div class="card" data-category="${n.categoria}">
 
         <img src="${n.imagem}" onclick="abrirNoticia(${n.id})">
 
@@ -47,19 +53,91 @@ function renderNoticias(data) {
     `;
   });
 }
-
 function filtrar(cat) {
-  if (cat === "TODOS") {
-    renderNoticias(todasNoticias);
-    return;
-  }
 
-  const filtradas = todasNoticias.filter((n) => n.categoria === cat);
+  const filtradas = (cat === "all")
+    ? todasNoticias
+    : todasNoticias.filter(n =>
+        (n.categoria || "")
+          .trim()
+          .toLowerCase()
+          .includes(cat.toLowerCase())
+      );
+
   renderNoticias(filtradas);
 }
+
+const buttons = document.querySelectorAll(".filters button");
+const cards = document.querySelectorAll(".card");
+
+
+buttons.forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    // remove active
+    buttons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const category = btn.dataset.category;
+
+    cards.forEach(card => {
+      const cardCat = card.dataset.category;
+
+      if (category === "all" || cardCat === category) {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+  });
+});
 
 function abrirNoticia(id) {
   window.location.href = `noticias.html?id=${id}`;
 }
 
 window.addEventListener("DOMContentLoaded", carregarNoticias);
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+  const buttons = document.querySelectorAll(".filters button");
+
+  buttons.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      const category = btn.dataset.category.toLowerCase();
+
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filtradas = category === "all"
+        ? todasNoticias
+        : todasNoticias.filter(n =>
+            (n.categoria || "")
+              .trim()
+              .toLowerCase() === category
+          );
+
+      renderNoticias(filtradas);
+
+
+
+
+      // 🔥 SE DER ERRO (NÃO FICA PRETO)
+      const container = document.getElementById("news-container");
+
+      if (!encontrou) {
+        container.innerHTML = `
+          <p style="text-align:center;color:cyan;padding:20px">
+            Nenhuma notícia nesta categoria
+          </p>
+        `;
+      }
+
+    });
+
+  });
+
+});

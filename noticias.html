@@ -72,6 +72,25 @@
 </nav>
 
 <section class="news-page">
+  <div class="filters">
+
+  <button onclick="filtrar('all')">
+    Todos
+  </button>
+
+  <button onclick="filtrar('ia')">
+    IA
+  </button>
+
+  <button onclick="filtrar('games')">
+    Games
+  </button>
+
+  <button onclick="filtrar('smartphones')">
+    Smartphones
+  </button>
+
+</div>
 
   <div id="news-container" class="news-container">
     <div class="loading">A carregar notícias...</div>
@@ -195,32 +214,33 @@ async function carregarSugestoes(categoria, idAtual) {
 function renderNoticias(data) {
 
   const container = document.getElementById("news-container");
-
   container.innerHTML = "";
 
   data.forEach(n => {
 
+    const cat = (n.categoria || "geral").toLowerCase();
+
     container.innerHTML += `
-  <div class="card">
+      <div class="card" data-category="${cat}">
 
-    <img src="${n.imagem}" onclick="abrirNoticia(${n.id})">
+        <img src="${n.imagem}" onclick="abrirNoticia(${n.id})">
 
-    <div class="card-content">
+        <div class="card-content">
 
-      <span>${n.categoria}</span>
+          <span>${n.categoria}</span>
 
-      <h3>${n.titulo}</h3>
+          <h3>${n.titulo}</h3>
 
-      <p>${n.resumo}</p>
+          <p>${n.resumo || ""}</p>
 
-      <button class="ver-noticia-btn" onclick="abrirNoticia(${n.id})">
-        Ver Notícia Completa
-      </button>
+          <button class="ler-mais-btn" onclick="abrirNoticia(${n.id})">
+            Ver Notícia Completa
+          </button>
 
-    </div>
+        </div>
 
-  </div>
-`;
+      </div>
+    `;
   });
 }
 
@@ -229,11 +249,15 @@ function renderNoticias(data) {
 ========================= */
 function filtrar(cat) {
 
-  if (cat === "TODOS") {
-    renderNoticias(todasNoticias);
-  } else {
-    renderNoticias(todasNoticias.filter(n => n.categoria === cat));
-  }
+  const container = document.getElementById("news-container");
+
+  const filtradas = (cat === "all")
+    ? todasNoticias
+    : todasNoticias.filter(n =>
+        (n.categoria || "").toLowerCase() === cat
+      );
+
+  renderNoticias(filtradas);
 }
 
 function abrirNoticia(id) {

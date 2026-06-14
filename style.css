@@ -53,7 +53,7 @@ nav {
 
 nav ul {
   display: flex;
-  gap: 25px;
+  gap: 15px;
   list-style: none;
 }
 
@@ -398,7 +398,7 @@ nav {
   justify-content: space-between;
   align-items: center;
 
-  padding: 18px 10%;
+  padding: 10px 1%;
 
   background: rgba(2, 6, 23, 0.75);
   backdrop-filter: blur(12px);
@@ -408,8 +408,8 @@ nav {
 
 .logo {
   color: cyan;
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 20px;
 }
 
 
@@ -471,7 +471,7 @@ nav ul li a {
   color: white;
   cursor: pointer;
 
-  padding: 8px 16px;
+  padding: 5px 1px;
   border-radius: 30px;
 
   display: inline-flex;
@@ -509,4 +509,85 @@ nav a:hover {
   background: rgba(0,255,255,0.08);
   border: 1px solid cyan;
   box-shadow: 0 0 12px rgba(0,255,255,0.2);
+}
+
+.about-page {
+  padding: 60px 10%;
+}
+
+/* REMOVE ESPAÇO EXCESSIVO DO HERO */
+.about-hero {
+  text-align: center;
+  margin-bottom: 30px; /* REDUZIDO */
+}
+
+.about-hero h1 {
+  font-size: clamp(28px, 4vw, 50px);
+  color: cyan;
+  margin-bottom: 8px;
+}
+
+.about-hero p {
+  color: #cbd5e1;
+}
+
+/* IMPORTANTE: tira flex que cria “buracos” */
+.about-container {
+  display: block; /* ❗ chave do problema */
+  max-width: 900px;
+  margin: auto;
+}
+
+/* CARD AJUSTADO AO CONTEÚDO */
+.about-container .card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+
+  padding: 20px;
+  margin-bottom: 15px; /* controla espaço entre blocos */
+
+  height: auto !important; /* remove bug de altura fixa */
+}
+
+/* REMOVE ESPAÇO EXTRA DO TEXTO */
+.about-container .card p {
+  margin: 0 0 10px 0;
+  line-height: 1.6;
+}
+
+/* FOOTER MAIS LIMPO */
+.about-footer {
+  text-align: center;
+  margin-top: 25px;
+  color: cyan;
+}
+.filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin-bottom: 30px;
+}
+
+.filters button {
+  padding: 8px 16px;
+  border-radius: 30px;
+
+  border: 1px solid cyan;
+  background: transparent;
+
+  color: cyan;
+  cursor: pointer;
+
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.filters button:hover,
+.filters button.active {
+  background: cyan;
+  color: #020617;
+  box-shadow: 0 0 12px cyan;
 }
