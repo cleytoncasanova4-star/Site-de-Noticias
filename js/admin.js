@@ -2,7 +2,7 @@ let editandoId = null;
 function login() {
   const senha = document.getElementById("senha").value;
 
-  if (senha === "1234") {
+  if (senha === "871632577") {
     document.getElementById("login-box").style.display = "none";
 
     document.getElementById("admin-page").style.display = "block";
@@ -91,6 +91,20 @@ async function salvarNoticia() {
   const resumo = document.getElementById("resumo").value;
 
   const categoria = document.getElementById("categoria").value;
+  const vantagens =
+  document.getElementById("vantagens").value;
+
+const desvantagens =
+  document.getElementById("desvantagens").value;
+
+const sugestoes =
+  document.getElementById("sugestoes").value;
+
+const autor =
+  document.getElementById("autor").value;
+
+const tempoLeitura =
+  document.getElementById("tempoLeitura").value;
 
   const imagemFile = document.getElementById("imagem").files[0];
 
@@ -109,11 +123,15 @@ async function salvarNoticia() {
   /* EDITAR */
   if (editandoId) {
     const updateData = {
-      titulo,
-      resumo,
-      categoria,
-    };
-
+  titulo,
+  resumo,
+  categoria,
+  vantagens,
+  desvantagens,
+  autor,
+  tempo_leitura: tempoLeitura,
+  sugestoes
+};
     if (imagemURL) {
       updateData.imagem = imagemURL;
     }
@@ -133,10 +151,15 @@ async function salvarNoticia() {
     /* NOVA */
     const { error } = await supabaseClient.from("noticias").insert([
       {
-        titulo,
-        resumo,
-        categoria,
-        imagem: imagemURL,
+  titulo,
+  resumo,
+  categoria,
+  imagem: imagemURL,
+  vantagens,
+  desvantagens,
+  autor,
+  tempo_leitura: tempoLeitura,
+  sugestoes
       },
     ]);
 
@@ -165,6 +188,19 @@ async function editar(id) {
   document.getElementById("resumo").value = data.resumo;
 
   document.getElementById("categoria").value = data.categoria;
+  document.getElementById("vantagens").value =
+  data.vantagens || "";
+
+  document.getElementById("desvantagens").value =
+  data.desvantagens || "";
+
+  document.getElementById("sugestoes").value = "";
+
+  document.getElementById("autor").value =
+  data.autor || "";
+
+  document.getElementById("tempoLeitura").value =
+  data.tempo_leitura || "";
 
   editandoId = id;
 }
@@ -193,6 +229,11 @@ function limpar() {
   document.getElementById("resumo").value = "";
   document.getElementById("categoria").value = "";
   document.getElementById("imagem").value = "";
+  document.getElementById("vantagens").value = "";
+  document.getElementById("desvantagens").value = "";
+  document.getElementById("sugestoes").value = "";
+  document.getElementById("autor").value = "";
+  document.getElementById("tempoLeitura").value = "";
 }
 
 /* =========================

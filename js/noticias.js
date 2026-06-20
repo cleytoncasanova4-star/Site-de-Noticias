@@ -113,16 +113,30 @@ window.addEventListener("DOMContentLoaded", carregarNoticias);
       btn.classList.add("active");
 
       const filtradas = category === "all"
-        ? todasNoticias
-        : todasNoticias.filter(n =>
-            (n.categoria || "")
-              .trim()
-              .toLowerCase() === category
-          );
+       ? todasNoticias
+       : todasNoticias.filter(n =>
+       (n.categoria || "")
+        .trim()
+        .toLowerCase() === category
+      );
 
-      renderNoticias(filtradas);
+renderNoticias(filtradas);
 
+if (filtradas.length === 0) {
+  document.getElementById("news-container").innerHTML = `
+    <p style="text-align:center;padding:30px;">
+      Nenhuma notícia encontrada nesta categoria.
+    </p>
+  `;
+}
 
+       const vantagensHTML = noticia.vantagens
+                ? noticia.vantagens
+               .split("\n")
+               .filter(item => item.trim())
+               .map(item => `<li>${item}</li>`)
+             .join("")
+       : "";
 
 
       // 🔥 SE DER ERRO (NÃO FICA PRETO)

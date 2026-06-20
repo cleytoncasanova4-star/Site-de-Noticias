@@ -145,28 +145,123 @@ async function carregarNoticiaIndividual(id) {
       "<p>Notícia não encontrada</p>";
     return;
   }
+  await supabaseClient
+  .from("noticias")
+  .update({
+    visualizacoes: (data.visualizacoes || 0) + 1
+  })
+  .eq("id", id);
+
+  const vantagensHTML = data.vantagens
+    ? data.vantagens
+        .split("\n")
+        .filter(v => v.trim())
+        .map(v => `<li>${v}</li>`)
+        .join("")
+    : "";
+
+  const desvantagensHTML = data.desvantagens
+    ? data.desvantagens
+        .split("\n")
+        .filter(v => v.trim())
+        .map(v => `<li>${v}</li>`)
+        .join("")
+    : "";
+
+    const sugestoesHTML = data.sugestoes
+  ? data.sugestoes
+      .split("\n")
+      .filter(v => v.trim())
+      .map(v => `<li>${v}</li>`)
+      .join("")
+  : "";
 
   document.getElementById("news-container").innerHTML = `
-    <div class="noticia-completa">
-
-      <button class="btn-voltar" onclick="voltar()">← Voltar</button>
-
-      <span class="badge">${data.categoria}</span>
-
-      <h1>${data.titulo}</h1>
-
-      <img src="${data.imagem}">
-
-      <p>${data.resumo || ""}</p>
-
-      <hr>
-
-      <h2>Mais notícias desta categoria</h2>
-
-      <div id="sugestoes" class="news-container"></div>
-
-    </div>
+    ...
   `;
+
+  document.getElementById("news-container").innerHTML = `
+<div class="noticia-completa">
+
+  <button class="btn-voltar" onclick="voltar()">
+    ← Voltar
+  </button>
+
+  <span class="badge">${data.categoria}</span>
+
+  <h1>${data.titulo}</h1>
+
+  <div class="noticia-meta">
+
+    <span>
+      👤 ${data.autor || "Tech News"}
+    </span>
+
+    <span>
+      ⏱️ ${data.tempo_leitura || "5 min de leitura"}
+    </span>
+    <span>
+      📅 ${new Date(data.created_at).toLocaleDateString("pt-PT")}
+    </span>
+    <span>
+     👁️ ${data.visualizacoes || 0} visualizações
+    </span>
+
+  </div>
+
+  <img src="${data.imagem}">
+
+  <div class="texto-noticia">
+    <p>${(data.resumo || "").replace(/\n/g, "<br>")}</p>
+  </div>
+
+  ${
+    vantagensHTML
+      ? `
+      <div class="vantagens-box">
+        <h3>✅ Vantagens</h3>
+        <ul>
+          ${vantagensHTML}
+        </ul>
+      </div>
+    `
+      : ""
+  }
+
+  ${
+    desvantagensHTML
+      ? `
+      <div class="desvantagens-box">
+        <h3>❌ Pontos de Atenção</h3>
+        <ul>
+          ${desvantagensHTML}
+        </ul>
+      </div>
+    `
+      : ""
+  }
+
+  ${
+  sugestoesHTML
+    ? `
+    <div class="sugestoes-box">
+      <h3>💡 Sugestões</h3>
+      <ul>
+        ${sugestoesHTML}
+      </ul>
+    </div>
+    `
+    : ""
+}
+
+  <hr>
+
+  <h2>Mais notícias desta categoria</h2>
+
+  <div id="sugestoes" class="news-container"></div>
+
+</div>
+`;
 
   carregarSugestoes(data.categoria, data.id);
 }
