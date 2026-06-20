@@ -700,3 +700,25 @@ nav a:hover {
   margin-bottom:10px;
   line-height:1.7;
 }
+.about-card{
+  max-width:1000px;
+  margin:auto;
+  background:#0f172a;
+  padding:40px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+
+.about-card h2{
+  color:cyan;
+  margin-top:30px;
+  margin-bottom:15px;
+}
+
+.about-card p{
+  color:#cbd5e1;
+  line-height:1.9;
+  margin-bottom:15px;
+  font-size:16px;
+}
