@@ -365,42 +365,19 @@ function renderNoticias(data) {
 
       </div>
     `;
-
-    // 🔥 Banner 300x250 a cada 4 notícias
-    if ((index + 1) % 4 === 0) {
-
-      const ad = document.createElement("div");
-      ad.className = "ad-container";
-
-      ad.innerHTML = `
-        <script>
-          atOptions = {
-            'key' : 'e641357b5fc5663ced672234e064bf6e',
-            'format' : 'iframe',
-            'height' : 250,
-            'width' : 300,
-            'params' : {}
-          };
-        <\/script>
-        <script src="https://www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js"><\/script>
-      `;
-
-      container.appendChild(ad);
+     // 728x90 no início
+    if (index === 1) {
+      container.appendChild(criarBanner728x90());
     }
 
-    // 🔥 Native banner a cada 6 notícias
+    // 300x250 a cada 3 notícias
+    if ((index + 1) % 3 === 0) {
+      container.appendChild(criarBanner300x250());
+    }
+
+    // Native ad a cada 6 notícias
     if ((index + 1) % 6 === 0) {
-
-      const ad = document.createElement("div");
-      ad.className = "native-ad";
-
-      ad.innerHTML = `
-        <script async="async" data-cfasync="false"
-          src="https://pl29884988.effectivecpmnetwork.com/36874ae5ce7f83fecabff30047238111/invoke.js"></script>
-        <div id="container-36874ae5ce7f83fecabff30047238111"></div>
-      `;
-
-      container.appendChild(ad);
+      container.appendChild(criarNativeAd());
     }
 
   });
@@ -428,6 +405,69 @@ function abrirNoticia(id) {
 
 function voltar() {
   window.location.href = "noticias.html";
+}
+function criarBanner300x250() {
+  const wrapper = document.createElement("div");
+  wrapper.className = "ad-container";
+
+  const script = document.createElement("script");
+  script.innerHTML = `
+    atOptions = {
+      key: 'e641357b5fc5663ced672234e064bf6e',
+      format: 'iframe',
+      height: 250,
+      width: 300,
+      params: {}
+    };
+  `;
+
+  const invoke = document.createElement("script");
+  invoke.src = "https://www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js";
+
+  wrapper.appendChild(script);
+  wrapper.appendChild(invoke);
+
+  return wrapper;
+}
+ function criarBanner728x90() {
+  const wrapper = document.createElement("div");
+  wrapper.className = "ad-container";
+
+  const script = document.createElement("script");
+  script.innerHTML = `
+    atOptions = {
+      key: 'af809537a53f9bf1cbbf0837d0db8c60',
+      format: 'iframe',
+      height: 90,
+      width: 728,
+      params: {}
+    };
+  `;
+
+  const invoke = document.createElement("script");
+  invoke.src = "https://www.highperformanceformat.com/af809537a53f9bf1cbbf0837d0db8c60/invoke.js";
+
+  wrapper.appendChild(script);
+  wrapper.appendChild(invoke);
+
+  return wrapper;
+}
+
+function criarNativeAd() {
+  const wrapper = document.createElement("div");
+  wrapper.className = "native-ad";
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = "https://pl29884988.effectivecpmnetwork.com/36874ae5ce7f83fecabff30047238111/invoke.js";
+
+  const container = document.createElement("div");
+  container.id = "container-36874ae5ce7f83fecabff30047238111";
+
+  wrapper.appendChild(script);
+  wrapper.appendChild(container);
+
+  return wrapper;
 }
 
 /* =========================
