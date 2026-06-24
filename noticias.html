@@ -340,7 +340,7 @@ function renderNoticias(data) {
   const container = document.getElementById("news-container");
   container.innerHTML = "";
 
-  data.forEach(n => {
+  data.forEach((n, index) => {
 
     const cat = (n.categoria || "geral").toLowerCase();
 
@@ -365,10 +365,14 @@ function renderNoticias(data) {
 
       </div>
     `;
-     // 🔥 Banner 300x250 depois de 4 notícias
-  if ((index + 1) % 4 === 0) {
-    container.innerHTML += `
-      <div class="ad-container">
+
+    // 🔥 Banner 300x250 a cada 4 notícias
+    if ((index + 1) % 4 === 0) {
+
+      const ad = document.createElement("div");
+      ad.className = "ad-container";
+
+      ad.innerHTML = `
         <script>
           atOptions = {
             'key' : 'e641357b5fc5663ced672234e064bf6e',
@@ -379,21 +383,26 @@ function renderNoticias(data) {
           };
         <\/script>
         <script src="https://www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js"><\/script>
-      </div>
-    `;
-  }
+      `;
 
-  // 🔥 Native banner depois de 6 notícias
-  if ((index + 1) % 6 === 0) {
-    container.innerHTML += `
-      <div class="native-ad">
+      container.appendChild(ad);
+    }
+
+    // 🔥 Native banner a cada 6 notícias
+    if ((index + 1) % 6 === 0) {
+
+      const ad = document.createElement("div");
+      ad.className = "native-ad";
+
+      ad.innerHTML = `
         <script async="async" data-cfasync="false"
-          src="https://pl29884988.effectivecpmnetwork.com/36874ae5ce7f83fecabff30047238111/invoke.js">
-        <\/script>
+          src="https://pl29884988.effectivecpmnetwork.com/36874ae5ce7f83fecabff30047238111/invoke.js"></script>
         <div id="container-36874ae5ce7f83fecabff30047238111"></div>
-      </div>
-    `;
-  }
+      `;
+
+      container.appendChild(ad);
+    }
+
   });
 }
 

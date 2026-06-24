@@ -1102,9 +1102,11 @@ nav a:hover {
     display:none;
   }
 }
-.native-ad{
-  display:flex;
-  justify-content:center;
-  margin:25px 0;
+.ad-container,
+.native-ad,
+.ad-mobile {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 }
