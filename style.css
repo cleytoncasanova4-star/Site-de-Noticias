@@ -1067,4 +1067,10 @@ nav a:hover {
   }
 
 }
+.ad-container{
+  width:100%;
+  display:flex;
+  justify-content:center;
+  margin:25px 0;
+}
 }

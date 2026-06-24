@@ -51,6 +51,24 @@ function renderNoticias(data) {
 
       </div>
     `;
+
+    // anúncio após cada 4 notícias
+  if ((index + 1) % 4 === 0) {
+    container.innerHTML += `
+      <div class="ad-container">
+        <script>
+          atOptions = {
+            'key' : 'e641357b5fc5663ced672234e064bf6e',
+            'format' : 'iframe',
+            'height' : 250,
+            'width' : 300,
+            'params' : {}
+          };
+        <\/script>
+        <script src="//www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js"><\/script>
+      </div>
+    `;
+  }
   });
 }
 function filtrar(cat) {
