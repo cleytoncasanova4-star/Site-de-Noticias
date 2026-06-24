@@ -1090,4 +1090,21 @@ nav a:hover {
     transform: scale(0.9);
   }
 }
+.ad-mobile{
+  display:flex;
+  justify-content:center;
+  margin:15px 0;
+}
+
+/* esconder no PC */
+@media (min-width: 768px){
+  .ad-mobile{
+    display:none;
+  }
+}
+.native-ad{
+  display:flex;
+  justify-content:center;
+  margin:25px 0;
+}
 }
