@@ -1078,4 +1078,16 @@ nav a:hover {
   justify-content:center;
   margin:25px 0;
 }
+.ad-container{
+  display:flex;
+  justify-content:center;
+  margin:20px 0;
+  overflow:hidden;
+}
+
+@media (max-width: 768px){
+  .ad-container{
+    transform: scale(0.9);
+  }
+}
 }
