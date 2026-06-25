@@ -1117,4 +1117,20 @@ nav a:hover {
   margin: 25px auto;
   min-height: 250px;
 }
+.ad-container,
+.native-ad {
+  grid-column: 1 / -1;
+  width: 100%;
+  text-align: center;
+}
+.news-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.ad-container,
+.native-ad {
+  grid-column: 1 / -1;
+}
 }
