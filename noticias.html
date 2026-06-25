@@ -379,7 +379,17 @@ function renderNoticias(data) {
     if ((index + 1) % 6 === 0) {
       container.appendChild(criarNativeAd());
     }
+    if ((index + 1) % 3 === 0) {
 
+  const ad = document.createElement("div");
+
+  ad.className = "ad-container lazy-ad";
+
+  ad.dataset.type = "300x250";
+
+  container.appendChild(ad);
+ }
+ lazyLoadAds();
   });
 }
 
@@ -420,6 +430,48 @@ function criarBanner300x250() {
       params: {}
     };
   `;
+  function lazyLoadAds() {
+  const ads = document.querySelectorAll(".lazy-ad");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+
+      if (!entry.isIntersecting) return;
+
+      const ad = entry.target;
+
+      if (ad.dataset.loaded) return;
+
+      ad.dataset.loaded = "true";
+
+      if (ad.dataset.type === "300x250") {
+
+        ad.innerHTML = `
+          <script>
+            atOptions = {
+              key: 'e641357b5fc5663ced672234e064bf6e',
+              format: 'iframe',
+              height: 250,
+              width: 300,
+              params: {}
+            };
+          <\/script>
+
+          <script src="https://www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js">
+          <\/script>
+        `;
+
+      }
+
+      observer.unobserve(ad);
+
+    });
+  }, {
+    rootMargin: "300px"
+  });
+
+  ads.forEach(ad => observer.observe(ad));
+}
 
   const invoke = document.createElement("script");
   invoke.src = "https://www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js";

@@ -1109,4 +1109,12 @@ nav a:hover {
   justify-content: center;
   margin: 20px 0;
 }
+.ad-container,
+.native-ad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px auto;
+  min-height: 250px;
+}
 }
