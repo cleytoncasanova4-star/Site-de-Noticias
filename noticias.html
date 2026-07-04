@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Notícias</title>
+  <title>Notícias | Tech News</title>
 
   <link rel="stylesheet" href="style.css">
   <link rel="icon" type="image/png" href="favicon.png">
@@ -32,123 +32,134 @@
       display: inline-block;
       padding: 5px 12px;
       background: cyan;
-      color: black;
+      color: #000;
       border-radius: 20px;
       font-size: 12px;
+      margin-bottom: 15px;
     }
 
     .btn-voltar {
       display: inline-block;
       margin: 20px 0;
-      padding: 10px 15px;
+      padding: 10px 18px;
       background: transparent;
       border: 1px solid cyan;
       color: cyan;
+      border-radius: 8px;
       cursor: pointer;
-      border-radius: 10px;
     }
 
     .btn-voltar:hover {
       background: cyan;
-      color: black;
+      color: #000;
     }
+
+    .noticia-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin: 15px 0;
+      color: #999;
+      font-size: 14px;
+    }
+
+    .texto-noticia {
+      line-height: 1.8;
+      margin: 25px 0;
+    }
+
+    .vantagens-box,
+    .desvantagens-box,
+    .sugestoes-box {
+      margin: 25px 0;
+      padding: 20px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.05);
+      border-left: 4px solid cyan;
+    }
+
+    .vantagens-box ul,
+    .desvantagens-box ul,
+    .sugestoes-box ul{
+      padding-left:20px;
+    }
+
   </style>
 
 </head>
 
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="logo">TECH NEWS</div>
 
-  <ul>
-    <li><a href="index.html">Início</a></li>
-    <li><a href="noticias.html">Notícias</a></li>
-    <li><a href="sobre.html">Sobre</a></li>
-    <li><a href="privacidade.html">Privacidade</a></li>
-    <li><a href="contacto.html">Contacto</a></li>
-  </ul>
+<div class="logo">
+TECH NEWS
+</div>
+
+<ul>
+
+<li><a href="index.html">Início</a></li>
+<li><a href="noticias.html">Notícias</a></li>
+<li><a href="sobre.html">Sobre</a></li>
+<li><a href="privacidade.html">Privacidade</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+
+</ul>
+
 </nav>
 
 <section class="news-page">
-  <!-- 🔥 BANNER 728x90 (topo das notícias) -->
-  <div class="ad-container">
-    <script>
-      atOptions = {
-        'key' : 'af809537a53f9bf1cbbf0837d0db8c60',
-        'format' : 'iframe',
-        'height' : 90,
-        'width' : 728,
-        'params' : {}
-      };
-    </script>
-    <script src="https://www.highperformanceformat.com/af809537a53f9bf1cbbf0837d0db8c60/invoke.js"></script>
-  </div>
 
-  <div class="filters">
+<div class="filters">
 
-  <button onclick="filtrar('all')">
-    Todos
-  </button>
+<button onclick="filtrar('all')">
+Todos
+</button>
 
-  <button onclick="filtrar('ia')">
-    IA
-  </button>
+<button onclick="filtrar('ia')">
+IA
+</button>
 
-  <button onclick="filtrar('games')">
-    Games
-  </button>
+<button onclick="filtrar('games')">
+Games
+</button>
 
-  <button onclick="filtrar('smartphones')">
-    Smartphones
-  </button>
+<button onclick="filtrar('smartphones')">
+Smartphones
+</button>
 
 </div>
 
-  <div id="news-container" class="news-container">
-    <div class="loading">A carregar notícias...</div>
-  </div>
-  <div class="ad-container">
-  <script>
-    atOptions = {
-      'key' : 'e641357b5fc5663ced672234e064bf6e',
-      'format' : 'iframe',
-      'height' : 250,
-      'width' : 300,
-      'params' : {}
-    };
-  </script>
-  <script
-  src="//www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js"></script>
+<div id="news-container" class="news-container">
+
+<div class="loading">
+A carregar notícias...
 </div>
-<div class="native-ad">
-  <script async="async" data-cfasync="false" src="https://pl29884988.effectivecpmnetwork.com/36874ae5ce7f83fecabff30047238111/invoke.js"></script>
-  <div id="container-36874ae5ce7f83fecabff30047238111"></div>
+
 </div>
 
 </section>
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase.js"></script>
 
 <script>
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const params=new URLSearchParams(window.location.search);
 
-let todasNoticias = [];
+const id=params.get("id");
 
-/* =========================
-   CARREGAR LISTA
-========================= */
+let todasNoticias=[];
+
 async function carregarNoticias() {
 
-  const { data, error } = await supabaseClient
+  const { data: noticias, error } = await supabaseClient
     .from("noticias")
     .select("*")
     .order("created_at", { ascending: false });
+
+  console.log("DATA:", noticias);
+  console.log("ERROR:", error);
 
   if (error) {
     document.getElementById("news-container").innerHTML =
@@ -156,206 +167,266 @@ async function carregarNoticias() {
     return;
   }
 
-  todasNoticias = data;
-  renderNoticias(data);
+  todasNoticias = noticias;
+
+  renderNoticias(noticias);
 }
 
-/* =========================
-   DETALHE NOTÍCIA
-========================= */
-async function carregarNoticiaIndividual(id) {
 
-  const { data, error } = await supabaseClient
-    .from("noticias")
-    .select("*")
-    .eq("id", id)
-    .single();
+async function carregarNoticiaIndividual(id){
 
-  if (error || !data) {
-    document.getElementById("news-container").innerHTML =
-      "<p>Notícia não encontrada</p>";
-    return;
-  }
-  await supabaseClient
-  .from("noticias")
-  .update({
-    visualizacoes: (data.visualizacoes || 0) + 1
-  })
-  .eq("id", id);
+const {data,error}=await supabaseClient
 
-  const vantagensHTML = data.vantagens
-    ? data.vantagens
-        .split("\n")
-        .filter(v => v.trim())
-        .map(v => `<li>${v}</li>`)
-        .join("")
-    : "";
+.from("noticias")
 
-  const desvantagensHTML = data.desvantagens
-    ? data.desvantagens
-        .split("\n")
-        .filter(v => v.trim())
-        .map(v => `<li>${v}</li>`)
-        .join("")
-    : "";
+.select("*")
 
-    const sugestoesHTML = data.sugestoes
-  ? data.sugestoes
-      .split("\n")
-      .filter(v => v.trim())
-      .map(v => `<li>${v}</li>`)
-      .join("")
-  : "";
+.eq("id",id)
 
+.single();
 
+if(error||!data){
 
-  document.getElementById("news-container").innerHTML = `
+document.getElementById("news-container").innerHTML="<p>Notícia não encontrada.</p>";
+
+return;
+
+}
+
+await supabaseClient
+
+.from("noticias")
+
+.update({
+
+visualizacoes:(data.visualizacoes||0)+1
+
+})
+
+.eq("id",id);
+
+const vantagensHTML=data.vantagens?
+
+data.vantagens
+
+.split("\n")
+
+.filter(v=>v.trim())
+
+.map(v=>`<li>${v}</li>`)
+
+.join(""):"";
+
+const desvantagensHTML=data.desvantagens?
+
+data.desvantagens
+
+.split("\n")
+
+.filter(v=>v.trim())
+
+.map(v=>`<li>${v}</li>`)
+
+.join(""):"";
+
+const sugestoesHTML=data.sugestoes?
+
+data.sugestoes
+
+.split("\n")
+
+.filter(v=>v.trim())
+
+.map(v=>`<li>${v}</li>`)
+
+.join(""):"";
+document.getElementById("news-container").innerHTML = `
+
 <div class="noticia-completa">
 
-  <button class="btn-voltar" onclick="voltar()">
-    ← Voltar
-  </button>
+<button class="btn-voltar" onclick="voltar()">
+← Voltar
+</button>
 
-  <span class="badge">${data.categoria}</span>
+<span class="badge">${data.categoria}</span>
 
-  <h1>${data.titulo}</h1>
+<h1>${data.titulo}</h1>
 
-  <div class="noticia-meta">
+<div class="noticia-meta">
 
-    <span>
-      👤 ${data.autor || "Tech News"}
-    </span>
+<span>👤 ${data.autor || "Tech News"}</span>
 
-    <span>
-      ⏱️ ${data.tempo_leitura || "5 min de leitura"}
-    </span>
-    <span>
-      📅 ${new Date(data.created_at).toLocaleDateString("pt-PT")}
-    </span>
-    <span>
-     👁️ ${data.visualizacoes || 0} visualizações
-    </span>
+<span>⏱️ ${data.tempo_leitura || "5 min de leitura"}</span>
 
-  </div>
+<span>📅 ${new Date(data.created_at).toLocaleDateString("pt-PT")}</span>
 
-  <img src="${data.imagem}">
-
-  <div class="texto-noticia">
-    <p>${(data.resumo || "").replace(/\n/g, "<br>")}</p>
-  </div>
-
-  ${
-    vantagensHTML
-      ? `
-      <div class="vantagens-box">
-        <h3>✅ Vantagens</h3>
-        <ul>
-          ${vantagensHTML}
-        </ul>
-      </div>
-    `
-      : ""
-  }
-
-  ${
-    desvantagensHTML
-      ? `
-      <div class="desvantagens-box">
-        <h3>❌ Pontos de Atenção</h3>
-        <ul>
-          ${desvantagensHTML}
-        </ul>
-      </div>
-    `
-      : ""
-  }
-
-  ${
-  sugestoesHTML
-    ? `
-    <div class="sugestoes-box">
-      <h3>💡 Sugestões</h3>
-      <ul>
-        ${sugestoesHTML}
-      </ul>
-    </div>
-    `
-    : ""
-}
-
-  <hr>
-
-  <h2>Mais notícias desta categoria</h2>
-
-  <div id="sugestoes" class="news-container"></div>
+<span>👁️ ${(data.visualizacoes || 0) + 1} visualizações</span>
 
 </div>
+
+<img src="${data.imagem}" alt="${data.titulo}">
+
+<div class="texto-noticia">
+
+<p>${(data.resumo || "").replace(/\n/g,"<br>")}</p>
+
+</div>
+
+${vantagensHTML ? `
+
+<div class="vantagens-box">
+
+<h3>✅ Vantagens</h3>
+
+<ul>
+
+${vantagensHTML}
+
+</ul>
+
+</div>
+
+` : ""}
+
+${desvantagensHTML ? `
+
+<div class="desvantagens-box">
+
+<h3>❌ Pontos de Atenção</h3>
+
+<ul>
+
+${desvantagensHTML}
+
+</ul>
+
+</div>
+
+` : ""}
+
+${sugestoesHTML ? `
+
+<div class="sugestoes-box">
+
+<h3>💡 Sugestões</h3>
+
+<ul>
+
+${sugestoesHTML}
+
+</ul>
+
+</div>
+
+` : ""}
+
+<hr>
+
+<h2>Mais notícias desta categoria</h2>
+
+<div id="sugestoes" class="news-container"></div>
+
+</div>
+
 `;
 
-  carregarSugestoes(data.categoria, data.id);
+carregarSugestoes(data.categoria,data.id);
+
 }
 
-/* =========================
-   SUGESTÕES MELHORADAS
-========================= */
-async function carregarSugestoes(categoria, idAtual) {
+async function carregarSugestoes(categoria,idAtual){
 
-  const { data } = await supabaseClient
-    .from("noticias")
-    .select("*")
-    .eq("categoria", categoria)
-    .neq("id", idAtual)
-    .limit(4);
+const {data,error}=await supabaseClient
 
-  const container = document.getElementById("sugestoes");
+.from("noticias")
+
+.select("*")
+
+.eq("categoria",categoria)
+
+.neq("id",idAtual)
+
+.limit(4);
+
+const container=document.getElementById("sugestoes");
+
+if(!container) return;
+
+container.innerHTML="";
+
+if(error || !data || data.length===0){
+
+container.innerHTML="<p>Nenhuma notícia relacionada.</p>";
+
+return;
+
+}
+
+data.forEach(n=>{
+
+container.innerHTML+=`
+
+<div class="card" onclick="abrirNoticia(${n.id})">
+
+<img src="${n.imagem}" alt="${n.titulo}">
+
+<div class="card-content">
+
+<span>${n.categoria}</span>
+
+<h3>${n.titulo}</h3>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function renderNoticias(data) {
+
+  const container = document.getElementById("news-container");
 
   if (!container) return;
 
   container.innerHTML = "";
 
-  data.forEach(n => {
-
-    container.innerHTML += `
-      <div class="card" onclick="abrirNoticia(${n.id})">
-
-        <img src="${n.imagem}">
-
-        <div class="card-content">
-
-          <span>${n.categoria}</span>
-          <h3>${n.titulo}</h3>
-
-        </div>
-
-      </div>
+  // Se não houver notícias
+  if (!data || data.length === 0) {
+    container.innerHTML = `
+      <p style="text-align:center; padding:40px; color:#999;">
+        Nenhuma notícia encontrada.
+      </p>
     `;
-  });
-}
+    return;
+  }
 
-/* =========================
-   LISTA NORMAL
-========================= */
-function renderNoticias(data) {
+  // Renderiza cards
+  data.forEach((n) => {
 
-  const container = document.getElementById("news-container");
-  container.innerHTML = "";
-
-  data.forEach((n, index) => {
-
-    const cat = (n.categoria || "geral").toLowerCase();
+    const categoria = (n.categoria || "geral").toLowerCase();
 
     container.innerHTML += `
-      <div class="card" data-category="${cat}">
+      <div class="card" data-category="${categoria}">
 
-        <img src="${n.imagem}" onclick="abrirNoticia(${n.id})">
+        <img 
+          src="${n.imagem}" 
+          alt="${n.titulo}"
+          onclick="abrirNoticia(${n.id})"
+        >
 
         <div class="card-content">
 
-          <span>${n.categoria}</span>
+          <span>${n.categoria || "Geral"}</span>
 
           <h3>${n.titulo}</h3>
 
-          <p>${n.resumo || ""}</p>
+          <p>
+            ${(n.resumo || "").substring(0, 120)}...
+          </p>
 
           <button class="ler-mais-btn" onclick="abrirNoticia(${n.id})">
             Ver Notícia Completa
@@ -365,190 +436,73 @@ function renderNoticias(data) {
 
       </div>
     `;
-     // 728x90 no início
-    if (index === 1) {
-      container.appendChild(criarBanner728x90());
-    }
-
-    // 300x250 a cada 3 notícias
-    if ((index + 1) % 3 === 0) {
-      container.appendChild(criarBanner300x250());
-    }
-
-    // Native ad a cada 6 notícias
-    if ((index + 1) % 6 === 0) {
-      container.appendChild(criarNativeAd());
-    }
-    if ((index + 1) % 3 === 0) {
-
-  const ad = document.createElement("div");
-
-  ad.className = "ad-container lazy-ad";
-
-  ad.dataset.type = "300x250";
-
-  container.appendChild(ad);
- }
- lazyLoadAds();
   });
 }
 
-/* =========================
-   FUNÇÕES AUXILIARES
-========================= */
-function filtrar(cat) {
 
-  const container = document.getElementById("news-container");
+function filtrar(categoria){
 
-  const filtradas = (cat === "all")
+  const buttons = document.querySelectorAll(".filters button");
+
+  buttons.forEach(btn => {
+
+    btn.classList.remove("active");
+
+    if(btn.textContent.trim().toLowerCase() === categoria ||
+       (categoria === "all" && btn.textContent.trim().toLowerCase() === "todos")){
+
+      btn.classList.add("active");
+
+    }
+
+  });
+
+  const filtradas = categoria === "all"
+
     ? todasNoticias
+
     : todasNoticias.filter(n =>
-        (n.categoria || "").toLowerCase() === cat
+
+        (n.categoria || "")
+
+          .trim()
+
+          .toLowerCase() === categoria
+
       );
 
   renderNoticias(filtradas);
+
 }
 
-function abrirNoticia(id) {
+function abrirNoticia(id){
+
   window.location.href = `noticias.html?id=${id}`;
+
 }
 
-function voltar() {
+function voltar(){
+
   window.location.href = "noticias.html";
-}
-function criarBanner300x250() {
-  const wrapper = document.createElement("div");
-  wrapper.className = "ad-container";
 
-  const script = document.createElement("script");
-  script.innerHTML = `
-    atOptions = {
-      key: 'e641357b5fc5663ced672234e064bf6e',
-      format: 'iframe',
-      height: 250,
-      width: 300,
-      params: {}
-    };
-  `;
-  function lazyLoadAds() {
-  const ads = document.querySelectorAll(".lazy-ad");
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-
-      if (!entry.isIntersecting) return;
-
-      const ad = entry.target;
-
-      if (ad.dataset.loaded) return;
-
-      ad.dataset.loaded = "true";
-
-      if (ad.dataset.type === "300x250") {
-
-        ad.innerHTML = `
-          <script>
-            atOptions = {
-              key: 'e641357b5fc5663ced672234e064bf6e',
-              format: 'iframe',
-              height: 250,
-              width: 300,
-              params: {}
-            };
-          <\/script>
-
-          <script src="https://www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js">
-          <\/script>
-        `;
-
-      }
-
-      observer.unobserve(ad);
-
-    });
-  }, {
-    rootMargin: "300px"
-  });
-
-  ads.forEach(ad => observer.observe(ad));
 }
 
-  const invoke = document.createElement("script");
-  invoke.src = "https://www.highperformanceformat.com/e641357b5fc5663ced672234e064bf6e/invoke.js";
-
-  wrapper.appendChild(script);
-  wrapper.appendChild(invoke);
-
-  return wrapper;
-}
- function criarBanner728x90() {
-  const wrapper = document.createElement("div");
-  wrapper.className = "ad-container";
-
-  const script = document.createElement("script");
-  script.innerHTML = `
-    atOptions = {
-      key: 'af809537a53f9bf1cbbf0837d0db8c60',
-      format: 'iframe',
-      height: 90,
-      width: 728,
-      params: {}
-    };
-  `;
-
-  const invoke = document.createElement("script");
-  invoke.src = "https://www.highperformanceformat.com/af809537a53f9bf1cbbf0837d0db8c60/invoke.js";
-
-  wrapper.appendChild(script);
-  wrapper.appendChild(invoke);
-
-  return wrapper;
-}
-
-function criarNativeAd() {
-  const wrapper = document.createElement("div");
-  wrapper.className = "native-ad";
-
-  const script = document.createElement("script");
-  script.async = true;
-  script.src = "https://pl29884988.effectivecpmnetwork.com/36874ae5ce7f83fecabff30047238111/invoke.js";
-
-  const container = document.createElement("div");
-  container.id = "container-36874ae5ce7f83fecabff30047238111";
-
-  wrapper.appendChild(script);
-  wrapper.appendChild(container);
-
-  return wrapper;
-}
-
-/* =========================
-   INIT
-========================= */
 window.addEventListener("DOMContentLoaded", () => {
 
-  if (id) {
+  if(id){
+
     carregarNoticiaIndividual(id);
-  } else {
+
+  }else{
+
     carregarNoticias();
+
   }
 
 });
 
 </script>
-<script src="https://pl29884989.effectivecpmnetwork.com/02/49/c4/0249c4708de8ece10670f6e61ffdf15d.js"></script>
-<div class="ad-mobile">
-  <script>
-    atOptions = {
-      'key' : '3c692e419ae935a3f19ae98b95cab65f',
-      'format' : 'iframe',
-      'height' : 50,
-      'width' : 320,
-      'params' : {}
-    };
-  </script>
 
-  <script src="https://www.highperformanceformat.com/3c692e419ae935a3f19ae98b95cab65f/invoke.js"></script>
-</div>
 </body>
+
 </html>

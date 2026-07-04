@@ -104,12 +104,6 @@ nav a:hover {
   transform: scale(1.05);
   box-shadow: 0 0 25px cyan;
 }
-.news-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 25px;
-  padding: 60px 10%;
-}
 .card {
   display: flex;
   flex-direction: column;
@@ -1119,7 +1113,7 @@ nav a:hover {
 }
 .ad-container,
 .native-ad {
-  grid-column: 1 / -1;
+  grid-column: 2 / -2;
   width: 100%;
   text-align: center;
 }
@@ -1131,6 +1125,6 @@ nav a:hover {
 
 .ad-container,
 .native-ad {
-  grid-column: 1 / -1;
+  grid-column: 2 / -2;
 }
 }
