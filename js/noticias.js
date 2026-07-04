@@ -90,3 +90,9 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+// Registrar o Service Worker da Monetag
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js")
+        .then(() => console.log("Service Worker registrado"))
+        .catch(err => console.error("Erro ao registrar o Service Worker:", err));
+}
